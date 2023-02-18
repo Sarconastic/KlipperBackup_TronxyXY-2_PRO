@@ -1,0 +1,43 @@
+
+
+
+General Instructions (assumes you have a GitHub account):
+1) Create a new GitHub repository
+	KlipperBackup_TronxyXY-2_PRO
+2) Create a token for access to the repo (Settings--Developer--Personal Access Tokens)
+	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
+3) SSH To the printer and run the following commands (replace the values between [ ])
+
+sudo apt-get install git -y
+cd ~/klipper_config/ 
+	cd ~/klipper/
+git init
+	git init
+git config --global user.name "[USERNAME]"
+	git config --global user.name "[sarconastic]"
+git config --global user.email "[EMAIL]"
+	git config --global user.email "[sarconastic@gmail.com]
+git remote add origin https://[USERNAME]:[TOKEN]@[REPOSITORY URL]
+	git remote add origin https://sarconastic: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@https://github.com/Sarconastic/KlipperBackup_TronxyXY-2_PRO
+git add .
+	git add .
+git commit -m "Initial backup"
+	git commit -m "Initial backup"
+git push -u origin master
+	git push -u origin master
+	
+4) Add the following to a macro or printer.cfg file
+
+[gcode_shell_command backup_to_github]
+command: sh /home/pi/backup.sh
+timeout: 30.
+verbose: True
+
+[gcode_macro GITHUB_BACKUP]
+gcode:
+    RUN_SHELL_COMMAND CMD=backup_to_github
+
+5) Open WinSCP and connect to your printer
+6) Copy the “gcode_shell_command.py”: file into the extras folder.
+7) Copy the “backup.sh” file, updated with the correct credentials, into the pi folder.
+8) Create a macro button to run the backup.
